@@ -3,6 +3,7 @@ const router = express.Router()
 const KelasTaken = require('../models/KelasTaken')
 
 const verifyToken = require('./verifyToken')
+const verifyAdmin = require('./verifyAdmin')
 
 
 // CREATE

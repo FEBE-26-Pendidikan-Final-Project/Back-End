@@ -10,7 +10,8 @@ const verifyToken = require('./verifyToken')
 router.post('/',verifyAdmin, async (req, res) => {
     const kelasPost = new Kelas({
         nama: req.body.nama,
-        guru: req.body.guru
+        guru: req.body.guru,
+        token: req.body.token
     })
 
     try {
