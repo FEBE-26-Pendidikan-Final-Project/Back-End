@@ -13,8 +13,7 @@ router.post('/',verifyToken, async (req, res) => {
         bacaan: req.body.bacaan,
         soal: req.body.soal,
         jawaban: req.body.jawaban,
-        kelas: req.body.alamat
-
+        kelas : req.body.kelas._id
     })
 
     try {
