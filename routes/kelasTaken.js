@@ -9,8 +9,8 @@ const verifyAdmin = require('./verifyAdmin')
 // CREATE
 router.post('/',verifyToken, async (req, res) => {
     const kelasTakenPost = new KelasTaken({
-        user: req.body.user._id,
-        kelas: req.body.kelas._id
+        user: req.body.user,
+        kelas: req.body.kelas
     })
 
     try {
@@ -42,23 +42,23 @@ router.get('/:id', async (req, res) => {
   },
 
 // UPDATE
-router.put('/:ppdbId',verifyToken, async (req, res) => {
+router.put('/:idd',verifyAdmin, async (req, res) => {
     try{
-        const ppdbUpdate = await Ppdb.updateOne({_id: req.params.ppdbId}, {
+        const kelasTakenUpdate = await KelasTaken.updateOne({_id: req.params.id}, {
             nama: req.body.nama,
             alamat: req.body.alamat
         })
-        res.json(ppdbUpdate)
+        res.json(kelasTakenUpdate)
     }catch(err){
         res.json({message: err})
     }
 }),
 
 // DELETE
-router.delete('/:ppdbId',verifyToken, async (req, res) => {
+router.delete('/:id',verifyAdmin, async (req, res) => {
     try{
-        const ppdbUpdate = await Ppdb.deleteOne({_id: req.params.ppdbId})
-        res.json(ppdbUpdate)
+        const kelasTakenUpdate = await KelasTaken.deleteOne({_id: req.params.id})
+        res.json(kelasTakenUpdate)
     }catch(err){
         res.json({message: err})
     }
