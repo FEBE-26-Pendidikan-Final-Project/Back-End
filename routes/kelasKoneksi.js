@@ -1,40 +1,39 @@
 const express = require('express')
 const router = express.Router()
-const Kelas = require('../models/Kelas')
+const KelasKoneksi = require('../models/KelasKoneksi')
 
-const verifyAdmin = require('./verifyAdmin')
 const verifyToken = require('./verifyToken')
+const verifyAdmin = require('./verifyAdmin')
 
 
 // CREATE
 router.post('/',verifyAdmin, async (req, res) => {
-    const kelasPost = new Kelas({
-        nama: req.body.nama,
-        guru: req.body.guru,
-        tokenKelas: req.body.tokenKelas
+    const kelasKoneksiPost = new KelasKoneksi({
+        admin: req.body.admin,
+        kelas: req.body.kelas
     })
 
     try {
-        const kelas = await kelasPost.save()
-        res.json(kelas)
+        const kelasKoneksi = await kelasKoneksiPost.save()
+        res.json(kelasKoneksi)
     }catch(err){
         res.json({message: err})
     }
 }),
 
-// get all kelas
+// READ
 router.get('/', async (req, res) => {
     try {
-        const kelas  = await Kelas.find()
-        res.json(kelas)
+        const kelasKoneksi  = await KelasKoneksi.find()
+        res.json(kelasKoneksi)
     }catch(err){
         res.json({message: err})
     }
 }),
 
-//get kelas by kelas id
+//get kelasTaken by id
 router.get('/:id', async (req, res) => {
-    const kelas = await Kelas.findById(req.params.id)
+    const kelasKoneksi = await KelasKoneksi.findById(req.params.id)
     .then( doc => {
       if(!doc) {return res.status(404).end();}
       return res.status(200).json({doc , message: "kelas has been found"});
@@ -45,11 +44,11 @@ router.get('/:id', async (req, res) => {
 // UPDATE
 router.put('/:id',verifyAdmin, async (req, res) => {
     try{
-        const kelasUpdate = await Kelas.updateOne({_id: req.params.id}, {
+        const kelasKoneksiUpdate = await KelasKoneksi.updateOne({_id: req.params.id}, {
             nama: req.body.nama,
-            guru: req.body.guru
+            alamat: req.body.alamat
         })
-        res.json(kelasUpdate)
+        res.json(kelasKoneksiUpdate)
     }catch(err){
         res.json({message: err})
     }
@@ -58,8 +57,8 @@ router.put('/:id',verifyAdmin, async (req, res) => {
 // DELETE
 router.delete('/:id',verifyAdmin, async (req, res) => {
     try{
-        const kelasUpdate = await Kelas.deleteOne({_id: req.params.id})
-        res.json(kelasUpdate)
+        const kelasKoneksi = await KelasKoneksi.deleteOne({_id: req.params.ppdbId})
+        res.json(kelasKoneksi)
     }catch(err){
         res.json({message: err})
     }

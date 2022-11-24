@@ -2,20 +2,18 @@ const { string } = require('joi')
 const mongoose = require('mongoose')
 
 const nilaiSchema = mongoose.Schema({
-    bacaan: {
-        type: String,
+    skor: {
+        type: Number,
         required: true,
         max: 500
     },
-    soal: {
-        type: String,
-        required: true,
-        max: 500
+    user: {
+        type: mongoose.ObjectId,
+        ref: "User"
     },
-    jawaban: {
-        type: String,
-        required: true,
-        max: 200
+    quiz: {
+        type: mongoose.ObjectId,
+        ref: "Quiz"
     },
     createdAt: {
         type: Date,

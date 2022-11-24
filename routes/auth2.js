@@ -68,7 +68,7 @@ router.post('/login', async (req, res) => {
 
     // membuat token menggunkan JWT
     const token = jwt.sign({ _id: admin._id }, process.env.SECRET_KEY2)
-    res.header('auth-token2', token).json({
+    res.header('authadmin', token).json({
         token: token
     })
 })

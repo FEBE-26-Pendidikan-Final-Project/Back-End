@@ -7,13 +7,13 @@ const verifyToken = require('./verifyToken')
 
 
 // CREATE
-router.post('/',verifyToken, async (req, res) => {
+router.post('/',verifyAdmin, async (req, res) => {
     const quizPost = new Quiz({
         nama: req.body.nama,
         bacaan: req.body.bacaan,
         soal: req.body.soal,
         jawaban: req.body.jawaban,
-        kelas : req.body.kelas._id
+        kelas : req.body.kelas
     })
 
     try {

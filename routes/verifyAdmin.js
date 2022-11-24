@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 
 const verifyAdmin = (req, res, next) => {
-    const token = req.header('auth-token2')
+    const token = req.header('authadmin')
     if(!token) return res.status(400).json({
         status: res.statusCode,
         message: 'Access Denied !'
