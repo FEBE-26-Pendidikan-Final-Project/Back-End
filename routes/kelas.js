@@ -65,7 +65,7 @@ router.get('/:id', async (req, res) => {
     try{
         const kelas = await Kelas.findById(req.params.id,(err,docs)=>{
             if(!docs){ 
-                res.status(400).json({
+                res.status(404).json({
                     status:res.statusCode,
                     message:"Kelas tidak ditemukan!"
                 })
@@ -93,7 +93,7 @@ router.put('/:id',verifyAdmin, async (req, res) => {
             },
             (err,docs)=>{
                 if(!docs){ 
-                    res.status(400).json({
+                    res.status(404).json({
                         status:res.statusCode,
                         message:"Kelas tidak ditemukan!"
                     })
@@ -120,7 +120,7 @@ router.delete('/:id',verifyAdmin, async (req, res) => {
     try{
         const kelasUpdate = await Kelas.deleteOne({_id: req.params.id},(err,docs)=>{
             if(!docs){ 
-                res.status(400).json({
+                res.status(404).json({
                     status:res.statusCode,
                     message:"Kelas tidak ditemukan!"
                 })
