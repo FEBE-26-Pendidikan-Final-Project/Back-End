@@ -10,7 +10,7 @@ const kelasSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    token: {
+    tokenKelas: {
         type: String,
         required : true
     },

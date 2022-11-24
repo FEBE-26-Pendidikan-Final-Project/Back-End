@@ -9,8 +9,8 @@ const verifyAdmin = require('./verifyAdmin')
 // CREATE
 router.post('/',verifyToken, async (req, res) => {
     const kelasTakenPost = new KelasTaken({
-        user: req.body.user,
-        kelas: req.body.alamat,
+        user: req.body.user._id,
+        kelas: req.body.kelas._id
     })
 
     try {
@@ -42,7 +42,7 @@ router.get('/:id', async (req, res) => {
   },
 
 // UPDATE
-router.put('/:ppdbId',verifyAdmin, async (req, res) => {
+router.put('/:ppdbId',verifyToken, async (req, res) => {
     try{
         const ppdbUpdate = await Ppdb.updateOne({_id: req.params.ppdbId}, {
             nama: req.body.nama,
@@ -55,7 +55,7 @@ router.put('/:ppdbId',verifyAdmin, async (req, res) => {
 }),
 
 // DELETE
-router.delete('/:ppdbId',verifyAdmin, async (req, res) => {
+router.delete('/:ppdbId',verifyToken, async (req, res) => {
     try{
         const ppdbUpdate = await Ppdb.deleteOne({_id: req.params.ppdbId})
         res.json(ppdbUpdate)
