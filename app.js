@@ -14,14 +14,18 @@ const userRoutes = require('./routes/auth')
 const adminRoutes = require('./routes/auth2')
 const kelasRoutes = require('./routes/kelas')
 const kelasTakenRoutes = require('./routes/kelasTaken')
+// const kelasKoneksiRoutes = require('./routes/kelasKoneksi')
 const quizRoutes = require('./routes/quiz')
+const nilaiRoutes = require('./routes/nilai')
 
 // ruoutes example
 app.use('/user', userRoutes)
 app.use('/admin', adminRoutes)
 app.use('/kelas', kelasRoutes)
 app.use('/kelasTaken', kelasTakenRoutes)
+// app.use('/kelasKoneksi', kelasKoneksiRoutes)
 app.use('/quiz', quizRoutes)
+app.use('/nilai', nilaiRoutes)
 
 // connect to DB
 mongoose.connect(process.env.DB_CONNECTION, 
