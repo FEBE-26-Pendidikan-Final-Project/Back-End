@@ -54,9 +54,15 @@ router.post('/',verifyAdmin, async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const kelas  = await Kelas.find()
-        res.json(kelas)
+        res.res(200).json({
+            status:res.statusCode(200),
+            message:kelas
+        })
     }catch(err){
-        res.json({message: err})
+        res.res(200).json({
+            status:res.statusCode(200),
+            message:"Tidak dapat mengambil semua data!"
+        })
     }
 }),
 
