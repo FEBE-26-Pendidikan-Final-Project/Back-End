@@ -43,7 +43,7 @@ router.post('/',verifyAdmin, async (req, res) => {
             })
         }
     }catch(err){
-        if(res.statusCode != 400) return res.status(400).json({
+        if(res.statusCode == 200) return res.status(400).json({
             status:res.statusCode,
             message:"Gagal membuat kelas!"
         })
@@ -77,7 +77,7 @@ router.get('/:id', async (req, res) => {
             }
         })
     }catch(err){
-        if(res.statusCode != 400) return res.status(400).json({
+        if(res.statusCode == 200) return res.status(400).json({
                 status:res.statusCode,
                 message:"Gagal mencari kelas!"
             })
@@ -87,7 +87,7 @@ router.get('/:id', async (req, res) => {
 // UPDATE
 router.put('/:id',verifyAdmin, async (req, res) => {
     updateKelas:try{
-        const kelasUpdate = await Kelas.findByIdAndUpdate(req.params.id,{
+        const kelasUpdate = await Kelas.findOneAndUpdate({_id:req.params.id},{
                 nama: req.body.nama,
                 guru: req.body.guru
             },
@@ -108,7 +108,7 @@ router.put('/:id',verifyAdmin, async (req, res) => {
         
         break updateKelas
     }catch(err){
-        if(res.statusCode != 400) return res.status(400).json({
+        if(res.statusCode == 200) return res.status(400).json({
                 status:res.statusCode,
                 message:"Gagal mengupdate kelas!"
             })
@@ -132,7 +132,7 @@ router.delete('/:id',verifyAdmin, async (req, res) => {
             }
         })
     }catch(err){
-        if(res.statusCode != 400) return res.status(400).json({
+        if(res.statusCode == 200) return res.status(400).json({
             status:res.statusCode,
             message:"Gagal menghapus kelas"
         })
