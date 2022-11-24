@@ -6,9 +6,9 @@ const kelasSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    guru: {
-        type: String,
-        required: true
+    admin: {
+        type: mongoose.ObjectId,
+        ref: "Admin"
     },
     tokenKelas: {
         type: String,
