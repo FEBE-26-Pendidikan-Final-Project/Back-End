@@ -15,3 +15,15 @@ create = admin
 get
 update = admin
 delete = admin
+
+KelasKoneksi
+create = admin
+get
+update = admin
+delete = admin
+
+Nilai
+create = user
+get
+update = admin
+delete = admin
