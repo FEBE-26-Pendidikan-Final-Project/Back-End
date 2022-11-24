@@ -11,7 +11,7 @@ router.post('/',verifyAdmin, async (req, res) => {
     const kelasPost = new Kelas({
         nama: req.body.nama,
         guru: req.body.guru,
-        token: req.body.token
+        tokenKelas: req.body.tokenKelas
     })
 
     try {
@@ -47,7 +47,8 @@ router.put('/:id',verifyAdmin, async (req, res) => {
     try{
         const kelasUpdate = await Kelas.updateOne({_id: req.params.id}, {
             nama: req.body.nama,
-            guru: req.body.guru
+            guru: req.body.guru,
+            tokenKelas: req.body.tokenKelas
         })
         res.json(kelasUpdate)
     }catch(err){
