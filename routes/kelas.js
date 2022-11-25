@@ -1,3 +1,4 @@
+const e = require('express')
 const express = require('express')
 const router = express.Router()
 const mongoose = require("mongoose")
@@ -46,17 +47,18 @@ router.get('/:id', async (req, res) => {
 // UPDATE
 router.put('/:id',verifyAdmin, async (req, res) => {
     try{
-        const kelasUpdate = await Kelas.findOneAndUpdate({_id: req.params.id}, {
+        const kelasUpdate = await Kelas.updateOne({_id: req.params.id}, {
             nama: req.body.nama,
             tokenKelas: req.body.tokenKelas
         })
-            if(kelasUpdate){
-                return res.json(kelasUpdate)
-            } else {
-                res.status(400).send("cek error")
-            }
-    }catch(error){
-        res.status(400).json({message: err})
+        if(!kelasUpdate) {
+            res.status(400).json("cek error")
+        } else {
+            const kelas = await Kelas.findById(req.params.id)
+            res.json(kelas)
+        }
+    }catch(err){
+        res.status(400).send({message: err})
     }
 }),
 
