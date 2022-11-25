@@ -42,13 +42,19 @@ router.get('/:id', async (req, res) => {
   },
 
 // UPDATE
-router.put('/:idd',verifyAdmin, async (req, res) => {
+router.put('/:id',verifyAdmin, async (req, res) => {
     try{
         const kelasTakenUpdate = await KelasTaken.updateOne({_id: req.params.id}, {
-            nama: req.body.nama,
-            alamat: req.body.alamat
+            user: req.body.user,
+            kelas: req.body.kelas
         })
-        res.json(kelasTakenUpdate)
+        if(!kelasTakenUpdate) {
+            res.status(400).json("cek error")
+        } else {
+            const kelasTaken = await KelasTaken.findById(req.params.id)
+            res.json(kelasTaken)
+        }
+        
     }catch(err){
         res.json({message: err})
     }
