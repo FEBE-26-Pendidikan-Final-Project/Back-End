@@ -38,10 +38,7 @@ router.post('/register', async (req, res) => {
     //create user
     try {
         const saveUser = await user.save()
-        res.status(200).json({
-            "status":res.statusCode,
-            "message":"Berhasil membuat akun!"
-        })
+        res.json(saveUser)
     }catch(err){
         res.status(400).json({
             status: res.statusCode,
@@ -59,7 +56,7 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({email: req.body.email})
     if(!user) return res.status(400).json({
         status: res.statusCode,
-        message: 'Email tidak ditemukan!'
+        message: 'Email Anda Salah!'
     })
 
     // check password
@@ -71,9 +68,8 @@ router.post('/login', async (req, res) => {
 
     // membuat token menggunkan JWT
     const token = jwt.sign({ _id: user._id }, process.env.SECRET_KEY)
-    res.status(200).header('auth-token', token).json({
-        status: res.statusCode,
-        msg: token
+    res.header('authuser', token).json({
+        token: token
     })
 })
 
