@@ -16,7 +16,7 @@ router.post('/',verifyToken, async (req, res) => {
 
     try {
         const nilai = await nilaiPost.save()
-        res.json(quiz)
+        res.json(nilai)
     }catch(err){
         res.json({message: err})
     }
@@ -56,10 +56,15 @@ router.get('/:QuizId', async (req, res) => {
 // UPDATE
 router.put('/:id',verifyAdmin, async (req, res) => {
     try{
-        const nilaiUpdate = await nilai.updateOne({_id: req.params.id}, {
+        const nilaiUpdate = await Nilai.updateOne({_id: req.params.id}, {
             skor: req.body.skor,
         })
-        res.json(nilaiUpdate)
+        if(!nilaiUpdate) {
+            res.status(400).json(error)
+        } else {
+            const nilai = await Nilai.findById(req.params.id)
+            res.json(nilai)
+        }
     }catch(err){
         res.json({message: err})
     }
@@ -68,7 +73,7 @@ router.put('/:id',verifyAdmin, async (req, res) => {
 // DELETE
 router.delete('/:id',verifyAdmin, async (req, res) => {
     try{
-        const nilai = await Nilai.deleteOne({_id: req.params.ppdbId})
+        const nilai = await Nilai.deleteOne({_id: req.params.id})
         res.json({message: "nilai has been deleted"})
     }catch(err){
         res.json({message: err})

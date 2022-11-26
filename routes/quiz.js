@@ -3,7 +3,6 @@ const router = express.Router()
 const Quiz = require('../models/Quiz')
 
 const verifyAdmin = require('./verifyAdmin')
-const verifyToken = require('./verifyToken')
 
 
 // CREATE
@@ -50,12 +49,12 @@ router.get('/:kelasId', async (req, res) => {
     const quiz = await Quiz.findById(req.params.kelasId)
     .then( doc => {
       if(!doc) {return res.status(404).end();}
-      return res.status(200).json({doc , message: "kelas has been found"});
+      return res.status(200).json({doc , message: "Quiz berhasil ditemukan"});
     })
 
 }),
 
-// UPDATE
+// UPDATE Quiz
 router.put('/:id',verifyAdmin, async (req, res) => {
     try{
         const quizUpdate = await Quiz.updateOne({_id: req.params.id}, {
@@ -63,9 +62,15 @@ router.put('/:id',verifyAdmin, async (req, res) => {
             bacaan: req.body.bacaan,
             soal: req.body.soal,
             jawaban: req.body.jawaban,
-            kelas: req.body.alamat
+            kelas: req.body.kelas
         })
-        res.json(quizUpdate)
+        // res.json(quizUpdate)
+        if(!quizUpdate) {
+            res.status(400).json(error)
+        } else {
+            const quiz = await Quiz.findById(req.params.id)
+            res.json(quiz)
+        }
     }catch(err){
         res.json({message: err})
     }
@@ -74,8 +79,8 @@ router.put('/:id',verifyAdmin, async (req, res) => {
 // DELETE
 router.delete('/:id',verifyAdmin, async (req, res) => {
     try{
-        const quiz = await Quiz.deleteOne({_id: req.params.ppdbId})
-        res.json({message: "quiz has been deleted"})
+        const quiz = await Quiz.deleteOne({_id: req.params.id})
+        res.json({message: "Quiz berhasil dihapus"})
     }catch(err){
         res.json({message: err})
     }

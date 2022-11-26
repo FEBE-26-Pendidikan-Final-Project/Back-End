@@ -5,7 +5,7 @@ const nilaiSchema = mongoose.Schema({
     skor: {
         type: Number,
         required: true,
-        max: 500
+        max: 3
     },
     user: {
         type: mongoose.ObjectId,

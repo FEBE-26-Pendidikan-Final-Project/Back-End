@@ -8,6 +8,7 @@ const { registerValidation } = require('../configs/validation')
 
 // import models
 const User = require('../models/User')
+const verifyToken = require('./verifyToken')
 
 // Register
 router.post('/register', async (req, res) => {
@@ -72,6 +73,25 @@ router.post('/login', async (req, res) => {
         token: token
     })
 })
+
+// Update user by user
+router.put('/:id',verifyToken, async (req, res) => {
+    try{
+        const userUpdate = await User.updateOne({_id: req.params.id}, {
+            nama: req.body.nama
+        })
+        if(!userUpdate) {
+            res.status(400).json("cek error")
+        } else {
+            const user = await User.findById(req.params.id)
+            res.json(user)
+        }
+    }catch(err){
+        res.status(400).send({message: err})
+    }
+}),
+
+
 
 
 module.exports = router
