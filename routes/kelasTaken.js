@@ -36,7 +36,7 @@ router.get('/:id', async (req, res) => {
     const kelasTaken = await KelasTaken.findById(req.params.id)
     .then( doc => {
       if(!doc) {return res.status(404).end();}
-      return res.status(200).json({doc , message: "kelas has been found"});
+      return res.status(200).json({doc , message: "Kelas yang diambil berhasil ditemukan"});
     })
 
   },
@@ -64,7 +64,7 @@ router.put('/:id',verifyAdmin, async (req, res) => {
 router.delete('/:id',verifyAdmin, async (req, res) => {
     try{
         const kelasTakenUpdate = await KelasTaken.deleteOne({_id: req.params.id})
-        res.json(kelasTakenUpdate)
+        res.json(kelasTakenUpdate, "Kelas yang diambil berhasil dihapus")
     }catch(err){
         res.json({message: err})
     }
