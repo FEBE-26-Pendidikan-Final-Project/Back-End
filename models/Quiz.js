@@ -2,6 +2,10 @@ const { array } = require('joi')
 const mongoose = require('mongoose')
 
 const quizSchema = mongoose.Schema({
+    kelas: {
+        type: mongoose.ObjectId,
+        required: true
+    },
     nama: {
         type: String,
         required: true
