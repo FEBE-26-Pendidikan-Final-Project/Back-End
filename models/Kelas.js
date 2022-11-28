@@ -6,13 +6,13 @@ const kelasSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    ket: {
+        type: String,
+        required : true
+    },
     admin: {
         type: mongoose.ObjectId,
         ref: "Admin"
-    },
-    tokenKelas: {
-        type: String,
-        required : true
     },
     tglTerdaftar: {
         type: Date,
