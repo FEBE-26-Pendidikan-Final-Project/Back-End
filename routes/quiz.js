@@ -3,17 +3,46 @@ const router = express.Router()
 const Quiz = require('../models/Quiz')
 
 const verifyAdmin = require('./verifyAdmin')
+const { quizValidation } = require('../configs/validationQuiz')
 
 
 // CREATE
 router.post('/',verifyAdmin, async (req, res) => {
+    const { error } = quizValidation(req.body)
+    const lokasiError = error.details[0].message.split('\"');
+    // if(error) return res.status(400).json({
+    //     status: res.statusCode,
+    //     message: error.details[0].message
+    // })
+
+    if(error.details[0].message.includes("answer")){
+        res.status(400).json({
+            status: res.statusCode,
+            message: "answer harus terdiri dari 4 jawaban"
+        })
+    }else if(error.details[0].message.includes("is required")){
+        res.status(400).json({
+            status: res.statusCode,
+            message: "property "+lokasiError[1]+" belum diisi"
+        })
+    }
+
     const quizPost = new Quiz({
         nama: req.body.nama,
         bacaan: req.body.bacaan,
-        soal: req.body.soal,
-        jawaban: req.body.jawaban,
-        kelas : req.body.kelas
-    })
+        soal: {
+            question:req.body.soal.question,
+            answer:[
+                req.body.soal.answer[0],
+                req.body.soal.answer[1],
+                req.body.soal.answer[2],
+                req.body.soal.answer[3]
+            ],
+            correctAnswer:req.body.soal.correctAnswer
+        }
+    });
+
+    console.log(quizPost);
 
     try {
         const quiz = await quizPost.save()
@@ -60,9 +89,16 @@ router.put('/:id',verifyAdmin, async (req, res) => {
         const quizUpdate = await Quiz.updateOne({_id: req.params.id}, {
             nama: req.body.nama,
             bacaan: req.body.bacaan,
-            soal: req.body.soal,
-            jawaban: req.body.jawaban,
-            kelas: req.body.kelas
+            soal: {
+                question:req.body.soal.question,
+                answer:[
+                    req.body.soal.answer[0],
+                    req.body.soal.answer[1],
+                    req.body.soal.answer[2],
+                    req.body.soal.answer[3]
+                ],
+                correctAnswer:req.body.soal.correctAnswer
+            }
         })
         // res.json(quizUpdate)
         if(!quizUpdate) {

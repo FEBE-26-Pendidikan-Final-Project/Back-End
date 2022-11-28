@@ -11,17 +11,33 @@ const quizSchema = mongoose.Schema({
         required: true
     },
     soal: {
-        type: String,
-        required: true
-    },
-    jawaban: {
-        type: String,
-        required: true
-    },
-    kelas: {
-        type: mongoose.ObjectId,
-        ref: "Kelas"
-    },
+        question:{
+            type:String,
+            required:true
+        },
+        answer:[
+            {
+                type:String,
+                required:true
+            },
+            {
+                type:String,
+                required:true
+            },
+            {
+                type:String,
+                required:true
+            },
+            {
+                type:String,
+                required:true
+            }
+        ],
+        correctAnswer:{
+            type:Number,
+            required:true
+        }
+    }
     // option untuk jawaban yang benar dari setiap pertanyaan
     // option: {
     //     type: Array,
