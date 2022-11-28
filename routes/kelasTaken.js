@@ -5,9 +5,9 @@ const KelasTaken = require('../models/KelasTaken')
 const verifyToken = require('./verifyToken')
 const verifyAdmin = require('./verifyAdmin')
 
-
+// ,verifyToken
 // CREATE
-router.post('/',verifyToken, async (req, res) => {
+router.post('/', async (req, res) => {
     const kelasTakenPost = new KelasTaken({
         user: req.body.user,
         kelas: req.body.kelas
@@ -31,9 +31,12 @@ router.get('/', async (req, res) => {
     }
 }),
 
-//get kelasTaken by id
+//get semua kelasTaken by userid
 router.get('/:id', async (req, res) => {
-    const kelasTaken = await KelasTaken.findById(req.params.id)
+    const kelasTaken = await KelasTaken.find({
+        "kelas": req.params.id
+      })
+    .populate('user')
     .then( doc => {
       if(!doc) {return res.status(404).end();}
       return res.status(200).json({doc , message: "Kelas yang diambil berhasil ditemukan"});
