@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const quizSchema = mongoose.Schema({
     kelas: {
         type: mongoose.ObjectId,
-        required: true
+        ref: "Kelas"
     },
     nama: {
         type: String,
