@@ -28,6 +28,7 @@ router.post('/',verifyAdmin, async (req, res) => {
     }
 
     const quizPost = new Quiz({
+        kelas: req.body.kelas,
         nama: req.body.nama,
         bacaan: req.body.bacaan,
         soal: {
