@@ -32,6 +32,7 @@ router.get('/', async (req, res) => {
 }),
   //get semua user by kelasid
 
+//get semua kelasTaken by userid
 router.get('/:id', async (req, res) => {
     const kelasTaken = await KelasTaken.find({
         "kelas": req.params.id
@@ -84,5 +85,7 @@ router.delete('/:id',verifyAdmin, async (req, res) => {
         res.json({message: err})
     }
 })
+
+)
 
 module.exports = router
