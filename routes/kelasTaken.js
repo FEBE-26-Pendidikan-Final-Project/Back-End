@@ -30,8 +30,8 @@ router.get('/', async (req, res) => {
         res.json({message: err})
     }
 }),
+  //get semua user by kelasid
 
-//get semua kelasTaken by userid
 router.get('/:id', async (req, res) => {
     const kelasTaken = await KelasTaken.find({
         "kelas": req.params.id
@@ -42,7 +42,19 @@ router.get('/:id', async (req, res) => {
       return res.status(200).json({doc , message: "Kelas yang diambil berhasil ditemukan"});
     })
 
-  },
+  }),
+//get semua kelasTaken by userid
+  router.get('/:id', async (req, res) => {
+    const kelasTaken = await KelasTaken.find({
+        "user": req.params.id
+      })
+    .populate('kelas')
+    .then( doc => {
+      if(!doc) {return res.status(404).end();}
+      return res.status(200).json({doc , message: "user berhasil ditemukan"});
+    })
+
+  }),
 
 // UPDATE
 router.put('/:id',verifyAdmin, async (req, res) => {
@@ -72,5 +84,5 @@ router.delete('/:id',verifyAdmin, async (req, res) => {
         res.json({message: err})
     }
 })
-)
+
 module.exports = router
