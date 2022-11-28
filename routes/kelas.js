@@ -12,8 +12,8 @@ const verifyToken = require('./verifyToken')
 router.post('/',verifyAdmin, async (req, res) => {
     const kelasPost = new Kelas({
         nama: req.body.nama,
+        ket: req.body.ket,
         admin: req.body.admin,
-        tokenKelas: req.body.tokenKelas
     })
 
     try {
@@ -49,7 +49,7 @@ router.put('/:id',verifyAdmin, async (req, res) => {
     try{
         const kelasUpdate = await Kelas.updateOne({_id: req.params.id}, {
             nama: req.body.nama,
-            tokenKelas: req.body.tokenKelas
+            ket: req.body.ket
         })
         if(!kelasUpdate) {
             res.status(400).json("cek error")
