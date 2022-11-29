@@ -90,19 +90,42 @@ router.put('/:id',verifyToken, async (req, res) => {
     }catch(err){
         res.status(400).send({message: err})
     }
-}),
-//get id dari user by email address
-router.get('/id/', async (req, res) => {
-    const user = await User.find({
-        "email": req.body.email
-    },{_id:1})
-    res.json(user)
-    // .then( doc.email => {
-    //   if(!doc.email) {return res.status(404).end();}
-    //   return res.status(200).json({doc.email , message: "user berhasil ditemukan"});
-    // })
+})
 
-  })
+// get user by id => saran nazar
+router.get('/id/:id', async (req,res)=>{
+    const user = await User.findById(req.params.id)
+    .then(doc =>{
+        if(doc){
+            res.status(200).json({
+                status:res.statusCode,
+                message:{
+                    nama: doc.nama,
+                    email: doc.email
+                }
+            });
+        }
+    })
+    .catch(err =>{
+        res.status(404).json({
+            status:res.statusCode,
+            message:"user tidak ditemukan!"
+        });
+    })
+})
+
+//get id dari user by email address
+// router.get('/id/', async (req, res) => {
+//     const user = await User.find({
+//         "email": req.body.email
+//     },{_id:1})
+//     res.json(user)
+//     // .then( doc.email => {
+//     //   if(!doc.email) {return res.status(404).end();}
+//     //   return res.status(200).json({doc.email , message: "user berhasil ditemukan"});
+//     // })
+
+//   })
 
 
 
