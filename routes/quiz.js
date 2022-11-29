@@ -74,15 +74,18 @@ router.get('/:id', async (req, res) => {
 
 }),
 
-//get quiz by kelasId
-router.get('/:kelasId', async (req, res) => {
-    const quiz = await Quiz.findById(req.params.kelasId)
+
+//get semua quiz yang ada di suatu kelas
+router.get('/kelas/:id', async (req, res) => {
+    const quiz = await Quiz.find({
+        "kelas": req.params.id
+      })
     .then( doc => {
       if(!doc) {return res.status(404).end();}
-      return res.status(200).json({doc , message: "Quiz berhasil ditemukan"});
+      return res.status(200).json({doc , message: "quiz berhasil ditemukan"});
     })
 
-}),
+  }),
 
 // UPDATE Quiz
 router.put('/:id',verifyAdmin, async (req, res) => {
