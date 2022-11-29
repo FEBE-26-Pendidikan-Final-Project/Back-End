@@ -43,15 +43,31 @@ router.get('/:id', async (req, res) => {
 
 }),
 
-//get nilai by kelasId
-router.get('/:QuizId', async (req, res) => {
-    const nilai = await Nilai.findById(req.params.QuizId)
+
+//get semua nilai by userid
+  router.get('/user/:id', async (req, res) => {
+    const nilai = await Nilai.find({
+        "user": req.params.id
+      })
+    .populate('quiz')
     .then( doc => {
       if(!doc) {return res.status(404).end();}
-      return res.status(200).json({doc , message: "nilai has been found"});
+      return res.status(200).json({doc , message: "user berhasil ditemukan"});
     })
 
-}),
+  }),
+  //get semua nilai by quiz id
+  router.get('/quiz/:id', async (req, res) => {
+    const kelasTaken = await KelasTaken.find({
+        "quiz": req.params.id
+      })
+    .populate('user')
+    .then( doc => {
+      if(!doc) {return res.status(404).end();}
+      return res.status(200).json({doc , message: "user berhasil ditemukan"});
+    })
+
+  }),
 
 // UPDATE
 router.put('/:id',verifyAdmin, async (req, res) => {
