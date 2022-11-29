@@ -72,7 +72,7 @@ router.post('/login', async (req, res) => {
     res.header('authuser', token).json({
         token: token
     })
-})
+}),
 
 // Update user by user
 router.put('/:id',verifyToken, async (req, res) => {
@@ -90,7 +90,18 @@ router.put('/:id',verifyToken, async (req, res) => {
         res.status(400).send({message: err})
     }
 }),
+//get id dari user by email address
+router.get('/id/', async (req, res) => {
+    const user = await User.find({
+        "email": req.body.email
+    },{_id:1})
+    res.json(user)
+    // .then( doc.email => {
+    //   if(!doc.email) {return res.status(404).end();}
+    //   return res.status(200).json({doc.email , message: "user berhasil ditemukan"});
+    // })
 
+  })
 
 
 
