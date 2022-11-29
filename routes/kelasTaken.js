@@ -30,10 +30,10 @@ router.get('/', async (req, res) => {
         res.json({message: err})
     }
 }),
-  //get semua user by kelasid
+    
+//get semua user by kelasid
 
-//get semua kelasTaken by userid
-router.get('/:id', async (req, res) => {
+router.get('/kelas/:id', async (req, res) => {
     const kelasTaken = await KelasTaken.find({
         "kelas": req.params.id
       })
@@ -44,8 +44,8 @@ router.get('/:id', async (req, res) => {
     })
 
   }),
-//get semua kelasTaken by userid
-  router.get('/:id', async (req, res) => {
+//get semua kelas by userid
+  router.get('/user/:id', async (req, res) => {
     const kelasTaken = await KelasTaken.find({
         "user": req.params.id
       })
@@ -56,6 +56,7 @@ router.get('/:id', async (req, res) => {
     })
 
   }),
+
 
 // UPDATE
 router.put('/:id',verifyAdmin, async (req, res) => {
