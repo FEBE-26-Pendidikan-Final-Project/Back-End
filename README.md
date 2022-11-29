@@ -11,6 +11,7 @@
 - Register (`POST`) : http://localhost:3000/User/register
 - Login  (`POST`)   : http://localhost:3000/User/login
 - Update User (`PUT`)    : http://localhost:3000/User/:id
+- Get id user by email ('GET') : http://localhost:3000/User/id/
 
 ### Join Kelas (Kelas Taken by User)
 - Join Kelas (`POST`) : http://localhost:3000/kelasTaken/
@@ -30,20 +31,24 @@
 ### Kelas
 - Create Kelas (`POST`) : http://localhost:3000/Kelas/
 - Get All Kelas (`GET`) : http://localhost:3000/Kelas/
-- Get Kelas by Id (`GET`) : http://localhost:3000/Kelas/:id
 - Update Kelas (`PUT`) : http://localhost:3000/Kelas/:id
 - Delete Kelas (`DELETE`) : http://localhost:3000/Kelas/:id
 
 ### Join Kelas (Kelas Taken By User)
 - Update Join Kelas by Admin (`PUT`): http://localhost:3000/kelasTaken/
-
+- Get Kelas by userId (`GET`) : http://localhost:3000/kelasTaken/Kelas/:id
+- Get User by kelasId (`GET`) : http://localhost:3000/kelasTaken/user/:id
 ### Quiz
 - Create Quiz (`POST`) : http://localhost:3000/Quiz/
 - Get All Quiz (`GET`) : http://localhost:3000/Quiz/
-- Get Quiz by Id (`GET`) : http://localhost:3000/Quiz/:id
+- Get Quiz by Id (`GET`) : http://localhost:3000/Quiz/:id  
+- Get Quiz by kelasId (`GET`) : http://localhost:3000/Quiz/kelas/:id
 - Update Quiz (`PUT`) : http://localhost:3000/Quiz/:id
 - Delete Quiz (`DELETE`) : http://localhost:3000/Quiz/:id
 
 ### Nilai
+- Get Nilai by id (`GET`) :  http://localhost:3000/Nilai/:id
+- Get Nilai by UserId (`GET`) :  http://localhost:3000/Nilai/user/:id
+- Get Nilai by quizId (`GET`) :  http://localhost:3000/Nilai/quiz/:id
 - Update Nilai (`PUT`) : http://localhost:3000/Nilai/:id
 - Delete Nilai (`DELETE`) : http://localhost:3000/Nilai/:id
