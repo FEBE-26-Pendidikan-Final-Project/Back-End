@@ -74,11 +74,21 @@ router.post('/login', async (req, res) => {
         id:admin._id,
         token: token
     })
-}),
+});
+
+router.get('/getAdmin', verifyAdmin, async (req,res) => {
+    try {
+        const getAllAdmin = await Admin.find();
+        
+        res.json(getAllAdmin)
+    } catch (error) {
+        res.send(error)
+    }
+});
 
 // get admin by id
 router.get('/:id',verifyAdmin, async (req,res)=>{
-    const admin = await Admin.findById(req.params.id)
+    await Admin.findById(req.params.id)
     .then(doc =>{
         if(doc){
             res.status(200).json({
@@ -88,15 +98,21 @@ router.get('/:id',verifyAdmin, async (req,res)=>{
                     email: doc.email
                 }
             });
+        }else{
+            res.status(404).json({
+                status:res.statusCode,
+                message:"Admin tidak ditemukan!"
+            });
         }
     })
     .catch(err =>{
-        res.status(404).json({
+        res.status(400).json({
             status:res.statusCode,
-            message:"Admin tidak ditemukan!"
+            message:"Error saat mencari Admin!"
         });
     })
 })
+
 
 // Update data admin
 router.put('/:id',verifyAdmin, async (req, res) => {
@@ -148,12 +164,26 @@ router.put('/:id',verifyAdmin, async (req, res) => {
 // Delete Admin by admin id
 router.delete('/deleteAdmin/:id', verifyAdmin, async (req,res) => {
     try {
-        const deleteAdmin = await Admin.deleteOne({_id: req.params.id})
-        if(!deleteAdmin){
-            res.send("Admin tidak ditemukan")
-        } else {
-            res.send("Admin berhasil dihapus")
-        }
+        await Admin.findByIdAndDelete(req.params.id)
+        .then(doc=>{
+            if(!doc){
+                res.status(400).json({
+                    status:res.statusCode,
+                    message:"Admin tidak ditemukan"
+                })
+            }else {
+                res.status(200).json({
+                    status:res.statusCode,
+                    message:"Admin berhasil dihapus"
+                })
+            }
+        })
+        .catch(err=>{
+            res.status(400).json({
+                status:res.statusCode,
+                message:"Terjadi error pada saat menghapus!"
+            })
+        })
     } catch (error) {
         res.send(error)
     }
