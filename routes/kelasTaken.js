@@ -58,7 +58,7 @@ router.get('/kelas/:id', async (req, res) => {
   }),
 
 
-// UPDATE
+// UPDATE kelas taken by admin
 router.put('/:id',verifyAdmin, async (req, res) => {
     try{
         const kelasTakenUpdate = await KelasTaken.updateOne({_id: req.params.id}, {
@@ -77,13 +77,22 @@ router.put('/:id',verifyAdmin, async (req, res) => {
     }
 }),
 
-// DELETE
-router.delete('/:id',verifyAdmin, async (req, res) => {
+// DELETE kelas taken by admin
+router.delete('/Admin/:id',verifyAdmin, async (req, res) => {
     try{
         const kelasTakenUpdate = await KelasTaken.deleteOne({_id: req.params.id})
         res.json(kelasTakenUpdate, "Kelas yang diambil berhasil dihapus")
     }catch(err){
         res.json({message: err})
+    }
+})
+
+// Delete kelas taken by user
+router.delete('/:id', verifyToken, async (req, res)=> {
+    try {
+        res.send("cek route delete kelas taken by user")
+    } catch (error) {
+        res.send(error)
     }
 })
 

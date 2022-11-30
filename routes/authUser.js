@@ -93,7 +93,7 @@ router.put('/:id',verifyToken, async (req, res) => {
 })
 
 // get user by id => saran nazar
-router.get('/id/:id',verifyToken, async (req,res)=>{
+router.get('/:id',verifyToken, async (req,res)=>{
     const user = await User.findById(req.params.id)
     .then(doc =>{
         if(doc){
