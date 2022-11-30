@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 //import validation
-const { registerValidation } = require('../configs/validation')
+const { registerValidation,updateValidation } = require('../configs/validation')
 
 // import models
 const User = require('../models/User')
@@ -78,64 +78,46 @@ router.post('/login', async (req, res) => {
 // Update user by user
 router.put('/:id',verifyToken, async (req, res) => {
     try{
-        const dataOri = {
-            nama: req.body.nama,
-            password: req.body.password,
-            newPassword: req.body.newPassword
-        }
+        const { error } = updateValidation(req.body);
+        if(error) return res.status(400).json({
+            status: res.statusCode,
+            message: error.details[0].message
+        })
 
-        if(dataOri.nama != undefined){
-            await User.findByIdAndUpdate(req.params.id,{nama:dataOri.nama})
+        const dataLama = await User.findById(req.params.id);
+
+        
+        const checkValid = await bcrypt.compare(req.body.password, dataLama.password);
+        console.log(dataLama);
+        if(checkValid){
+            const salt = await bcrypt.genSalt(10);
+            const newHash = await bcrypt.hash(req.body.newPassword, salt);
+
+            await User.findByIdAndUpdate(req.params.id,{
+                nama:req.body.nama,
+                password:newHash
+            })
             .then(ress=>{
                 res.status(200).json({
                     status:res.statusCode,
                     message:{
-                        old:res.nama,
-                        new:dataOri.nama
+                        nama:req.body.nama,
+                        password:newHash
                     }
                 });
             })
             .catch(err=>{
                 res.status(400).json({
                     status:res.statusCode,
-                    message:"Nama gagal diganti!"
+                    message:"data gagal diganti!"
                 });
-                console.log(err);
             })
-        }else if(dataOri.password != undefined && dataOri.newPassword != undefined){
-            const dataLama = await User.findById(req.params.id);
-
-            const checkValid = await bcrypt.compare(dataOri.password, dataLama.password);
-            if(checkValid){
-                const salt = await bcrypt.genSalt(10);
-                const newHash = await bcrypt.hash(req.body.newPassword, salt);
-
-                await User.findByIdAndUpdate(req.params.id,{password:newHash})
-                .then(ress=>{
-                    res.status(200).json({
-                        status:res.statusCode,
-                        message:"Password berhasil diganti"
-                    });
-                })
-                .catch(err=>{
-                    res.status(400).json({
-                        status:res.statusCode,
-                        message:"Password gagal diganti!"
-                    });
-                })
-            }else{
-                res.status(400).json({
-                    status:res.statusCode,
-                    message:"Password tidak sesuai!"
-                });
-            }
         }else{
             res.status(400).json({
-                status: res.statusCode,
-                message: "Masukan data dengan benar!"
+                status:res.statusCode,
+                message:"Password tidak sesuai!"
             });
         }
-
     }catch(err){
         res.status(400).send({message: err})
     }
