@@ -106,6 +106,34 @@
 			"response": []
 		},
 		{
+			"name": "User - Delete User by user Id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "authuser",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://back-end-production-a765.up.railway.app/User/(id user)",
+					"protocol": "https",
+					"host": [
+						"back-end-production-a765",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"User",
+						"(id user)"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "User - Get User by user Id",
 			"request": {
 				"method": "GET",
