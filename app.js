@@ -10,8 +10,8 @@ app.use(bodyParser.json())
 app.use(cors())
 
 // import routes
-const userRoutes = require('./routes/auth')
-const adminRoutes = require('./routes/auth2')
+const userRoutes = require('./routes/authUser')
+const adminRoutes = require('./routes/authAdmin')
 const kelasRoutes = require('./routes/kelas')
 const kelasTakenRoutes = require('./routes/kelasTaken')
 const quizRoutes = require('./routes/quiz')
