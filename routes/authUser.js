@@ -80,8 +80,8 @@ router.put('/:id',verifyToken, async (req, res) => {
     try{
         const userUpdate = await User.updateOne({_id: req.params.id}, {
             nama: req.body.nama,
-            email: req.body.email,
-            password : req.body.password
+            email: req.body.email
+            // password: req.body.bcrypt.hash.password
         })
         if(!userUpdate) {
             res.status(400).json("cek error")
@@ -114,6 +114,20 @@ router.get('/:id',verifyToken, async (req,res)=>{
             message:"user tidak ditemukan!"
         });
     })
+})
+
+// Delete user by user
+router.delete('/:id', verifyToken, async (req,res) => {
+    try {
+        const deleteUser = await User.deleteOne({_id: req.params.id})
+        if(!deleteUser){
+            res.send("User tidak ditemukan")
+        } else {
+            res.send("User berhasil dihapus")
+        }
+    } catch (error) {
+        res.send(error)
+    }
 })
 
 //get id dari user by email address
