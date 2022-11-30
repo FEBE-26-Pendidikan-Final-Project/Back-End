@@ -75,7 +75,7 @@
 				"header": [
 					{
 						"key": "authuser",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzgwYTdmMGE2OWI3YzRhYzhkYzE4NzciLCJpYXQiOjE2Njk3MzE3Mjd9.4hCOs5N-O56zCl8W7Q8x2lQ6mSnA7F2Qs8g13xyh1ZY",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzgwYTdmMGE2OWI3YzRhYzhkYzE4NzciLCJpYXQiOjE2Njk3OTU2Njd9.FtrGjGrh8GEoY2L1KFgfZabG80-EoqJ4LHiEfEcibhI",
 						"type": "text"
 					}
 				],
@@ -89,7 +89,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://back-end-production-a765.up.railway.app/User/6380a7f0a69b7c4ac8dc1877",
+					"raw": "https://back-end-production-a765.up.railway.app/User/(id user)",
 					"protocol": "https",
 					"host": [
 						"back-end-production-a765",
@@ -99,7 +99,35 @@
 					],
 					"path": [
 						"User",
-						"6380a7f0a69b7c4ac8dc1877"
+						"(id user)"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User - Get User by user Id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authuser",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzgwYTdmMGE2OWI3YzRhYzhkYzE4NzciLCJpYXQiOjE2Njk3OTU2Njd9.FtrGjGrh8GEoY2L1KFgfZabG80-EoqJ4LHiEfEcibhI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://back-end-production-a765.up.railway.app/User/(id user)",
+					"protocol": "https",
+					"host": [
+						"back-end-production-a765",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"User",
+						"(id user)"
 					]
 				}
 			},
@@ -318,6 +346,43 @@
 					"path": [
 						"Kelas",
 						"638626f0f06bc8b5f935280e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User - Delete Kelas Taken",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "authUser",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzgwYTdmMGE2OWI3YzRhYzhkYzE4NzciLCJpYXQiOjE2Njk3OTk3NDV9.unr63bL0r6PDsL2RHKfLlYkTgryOjOFbzKoO-yaDZSg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://back-end-production-a765.up.railway.app/kelasTaken/(id kelas taken)",
+					"protocol": "https",
+					"host": [
+						"back-end-production-a765",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"kelasTaken",
+						"(id kelas taken)"
 					]
 				}
 			},
