@@ -79,7 +79,9 @@ router.post('/login', async (req, res) => {
 router.put('/:id',verifyToken, async (req, res) => {
     try{
         const userUpdate = await User.updateOne({_id: req.params.id}, {
-            nama: req.body.nama
+            nama: req.body.nama,
+            email: req.body.email,
+            password : req.body.password
         })
         if(!userUpdate) {
             res.status(400).json("cek error")
