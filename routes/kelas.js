@@ -44,8 +44,8 @@ router.get('/:id', async (req, res) => {
 
   }),
 
-//get semua kelas yang dibuat admin/guru
-  router.get('/Admin/:id', async (req, res) => {
+//get Admin semua kelas yang dibuat admin/guru
+  router.get('/Admin/:id',  async (req, res) => {
     const kelas = await Kelas.find({
         "admin": req.params.id
       })
