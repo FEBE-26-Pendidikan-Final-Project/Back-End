@@ -78,17 +78,64 @@ router.post('/login', async (req, res) => {
 // Update user by user
 router.put('/:id',verifyToken, async (req, res) => {
     try{
-        const userUpdate = await User.updateOne({_id: req.params.id}, {
+        const dataOri = {
             nama: req.body.nama,
-            email: req.body.email
-            // password: req.body.bcrypt.hash.password
-        })
-        if(!userUpdate) {
-            res.status(400).json("cek error")
-        } else {
-            const user = await User.findById(req.params.id)
-            res.json(user)
+            password: req.body.password,
+            newPassword: req.body.newPassword
         }
+
+        if(dataOri.nama != undefined){
+            await User.findByIdAndUpdate(req.params.id,{nama:dataOri.nama})
+            .then(ress=>{
+                res.status(200).json({
+                    status:res.statusCode,
+                    message:{
+                        old:res.nama,
+                        new:dataOri.nama
+                    }
+                });
+            })
+            .catch(err=>{
+                res.status(400).json({
+                    status:res.statusCode,
+                    message:"Nama gagal diganti!"
+                });
+                console.log(err);
+            })
+        }else if(dataOri.password != undefined && dataOri.newPassword != undefined){
+            const dataLama = await User.findById(req.params.id);
+
+            const checkValid = await bcrypt.compare(dataOri.password, dataLama.password);
+            if(checkValid){
+                const salt = await bcrypt.genSalt(10);
+                const newHash = await bcrypt.hash(req.body.newPassword, salt);
+
+                await User.findByIdAndUpdate(req.params.id,{password:newHash})
+                .then(ress=>{
+                    res.status(200).json({
+                        status:res.statusCode,
+                        message:"Password berhasil diganti"
+                    });
+                })
+                .catch(err=>{
+                    res.status(400).json({
+                        status:res.statusCode,
+                        message:"Password gagal diganti!"
+                    });
+                })
+            }else{
+                res.status(400).json({
+                    status:res.statusCode,
+                    message:"Password tidak sesuai!"
+                });
+            }
+        }else{
+            res.status(400).json({
+                status: res.statusCode,
+                message: "Masukan data dengan benar!"
+            });
+        }
+
     }catch(err){
         res.status(400).send({message: err})
     }
