@@ -74,13 +74,36 @@ router.post('/login', async (req, res) => {
         id:admin._id,
         token: token
     })
+}),
+
+// get admin by id
+router.get('/:id',verifyAdmin, async (req,res)=>{
+    const admin = await Admin.findById(req.params.id)
+    .then(doc =>{
+        if(doc){
+            res.status(200).json({
+                status:res.statusCode,
+                message:{
+                    nama: doc.nama,
+                    email: doc.email
+                }
+            });
+        }
+    })
+    .catch(err =>{
+        res.status(404).json({
+            status:res.statusCode,
+            message:"Admin tidak ditemukan!"
+        });
+    })
 })
 
 // Update data admin
 router.put('/:id',verifyAdmin, async (req, res) => {
     try{
         const adminUpdate = await Admin.findByIdAndUpdate({_id: req.params.id}, {
-            nama: req.body.nama
+            nama: req.body.nama,
+            email: req.body.email
         });
 
         if(!adminUpdate) {
@@ -97,6 +120,20 @@ router.put('/:id',verifyAdmin, async (req, res) => {
         res.status(400).send({message: err})
     }
 }),
+
+// Delete Admin by admin id
+router.delete('/deleteAdmin/:id', verifyAdmin, async (req,res) => {
+    try {
+        const deleteAdmin = await Admin.deleteOne({_id: req.params.id})
+        if(!deleteAdmin){
+            res.send("Admin tidak ditemukan")
+        } else {
+            res.send("Admin berhasil dihapus")
+        }
+    } catch (error) {
+        res.send(error)
+    }
+})
 
 // Get All User by admin
 router.get('/getAllUser', verifyAdmin, async (req,res) => {

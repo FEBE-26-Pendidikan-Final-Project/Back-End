@@ -3,9 +3,9 @@ const mongoose = require('mongoose')
 
 const nilaiSchema = mongoose.Schema({
     skor: {
-        type: Number,
+        type: String,
         required: true,
-        max: 3
+        max: 4
     },
     user: {
         type: mongoose.ObjectId,
