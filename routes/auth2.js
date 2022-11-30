@@ -91,6 +91,28 @@ router.put('/updateUser/:id',verifyAdmin, async (req, res) => {
     }catch(err){
         res.status(400).send({message: err})
     }
+})
+
+// Update data admin
+router.put('/:id',verifyAdmin, async (req, res) => {
+    try{
+        const adminUpdate = await Admin.findByIdAndUpdate({_id: req.params.id}, {
+            nama: req.body.nama
+        });
+
+        if(!adminUpdate) {
+            res.status(400).json("cek error")
+        } else {
+            res.status(200).json({
+                status:res.statusCode,
+                message:{
+                    nama:adminUpdate.nama
+                }
+            });
+        }
+    }catch(err){
+        res.status(400).send({message: err})
+    }
 }),
 
 module.exports = router
