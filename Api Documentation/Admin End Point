@@ -68,6 +68,175 @@
 			"response": []
 		},
 		{
+			"name": "Admin - Get All Admin",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authadmin",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdlMWNhNzZiZDFmZjA4MjhlZmQxMzciLCJpYXQiOjE2Njk4MjYxODB9.oXJeCUzHL3a1XkruSBOk8Tfx5WLvH7zVbvdt_Sq2Pyg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://back-end-production-a765.up.railway.app/Admin/getAllAdmin",
+					"protocol": "https",
+					"host": [
+						"back-end-production-a765",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"Admin",
+						"getAllAdmin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin - Get Admin by admin Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authadmin",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzg3M2ZiMWJkN2ExZDdkZmE1MDg5ZmUiLCJpYXQiOjE2Njk4MTQzMTF9.HMgLU3ASbRoMG6EWuBxbm2CVdv8CmK0D3qSwyWT7qmk",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://back-end-production-a765.up.railway.app/Admin/(id Admin)",
+					"protocol": "https",
+					"host": [
+						"back-end-production-a765",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"Admin",
+						"(id Admin)"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin - Update admin by admin Id",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "authadmin",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nama\" : \"string\",\r\n    \"email\" : \"format email\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://back-end-production-a765.up.railway.app/Admin/(id Admin)",
+					"protocol": "https",
+					"host": [
+						"back-end-production-a765",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"Admin",
+						"(id Admin)"
+					],
+					"query": [
+						{
+							"key": "authadmin",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin - Delete Admin by admin Id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "authadmin",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://back-end-production-a765.up.railway.app/Admin/(id Admin)",
+					"protocol": "https",
+					"host": [
+						"back-end-production-a765",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"Admin",
+						"(id Admin)"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin - Get All User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authadmin",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdlMWNhNzZiZDFmZjA4MjhlZmQxMzciLCJpYXQiOjE2Njk4MjYwNzZ9.Sv2nO1KMR3U5laG2uVJSOUxa148YQK4Lv22ois9AYQM",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://back-end-production-a765.up.railway.app/Admin/User/getAllUser",
+					"protocol": "https",
+					"host": [
+						"back-end-production-a765",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"Admin",
+						"User",
+						"getAllUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Admin - Update User by user Id",
 			"request": {
 				"method": "PUT",
@@ -88,7 +257,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://back-end-production-a765.up.railway.app/Admin/updateUser/6384d8a5274e0856a2a2d468",
+					"raw": "https://back-end-production-a765.up.railway.app/Admin/updateUser/(id user)",
 					"protocol": "https",
 					"host": [
 						"back-end-production-a765",
@@ -99,7 +268,36 @@
 					"path": [
 						"Admin",
 						"updateUser",
-						"6384d8a5274e0856a2a2d468"
+						"(id user)"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin - Delete User by user Id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "authadmin",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdlMWNhNzZiZDFmZjA4MjhlZmQxMzciLCJpYXQiOjE2Njk3OTM1MDZ9.DfLHGXM9owEOPFix35uH5OdTlB1a_fGdqop8lkFD2Ak",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://back-end-production-a765.up.railway.app/Admin/deleteUser/(id user)",
+					"protocol": "https",
+					"host": [
+						"back-end-production-a765",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"Admin",
+						"deleteUser",
+						"(id user)"
 					]
 				}
 			},
@@ -196,7 +394,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"admin\" : \"637e1ca76bd1ff0828efd137\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -204,7 +402,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://back-end-production-a765.up.railway.app/Kelas/638626f0f06bc8b5f935280e",
+					"raw": "https://back-end-production-a765.up.railway.app/Kelas/Admin/(id admin)",
 					"protocol": "https",
 					"host": [
 						"back-end-production-a765",
@@ -214,7 +412,8 @@
 					],
 					"path": [
 						"Kelas",
-						"638626f0f06bc8b5f935280e"
+						"Admin",
+						"(id admin)"
 					]
 				}
 			},
@@ -663,63 +862,6 @@
 					"path": [
 						"Nilai",
 						"(Id Nilai)"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Admin - Delete User by user Id",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "authadmin",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdlMWNhNzZiZDFmZjA4MjhlZmQxMzciLCJpYXQiOjE2Njk3OTM1MDZ9.DfLHGXM9owEOPFix35uH5OdTlB1a_fGdqop8lkFD2Ak",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "https://back-end-production-a765.up.railway.app/Admin/deleteUser/(id user)",
-					"protocol": "https",
-					"host": [
-						"back-end-production-a765",
-						"up",
-						"railway",
-						"app"
-					],
-					"path": [
-						"Admin",
-						"deleteUser",
-						"(id user)"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Admin - Get All User",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "authadmin",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdlMWNhNzZiZDFmZjA4MjhlZmQxMzciLCJpYXQiOjE2Njk3OTM1MDZ9.DfLHGXM9owEOPFix35uH5OdTlB1a_fGdqop8lkFD2Ak",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "https://back-end-production-a765.up.railway.app/Admin/getAllUser",
-					"protocol": "https",
-					"host": [
-						"back-end-production-a765",
-						"up",
-						"railway",
-						"app"
-					],
-					"path": [
-						"Admin",
-						"getAllUser"
 					]
 				}
 			},

@@ -76,7 +76,8 @@ router.post('/login', async (req, res) => {
     })
 });
 
-router.get('/getAdmin', verifyAdmin, async (req,res) => {
+// get all admin
+router.get('/getAllAdmin', verifyAdmin, async (req,res) => {
     try {
         const getAllAdmin = await Admin.find();
         
@@ -162,7 +163,7 @@ router.put('/:id',verifyAdmin, async (req, res) => {
 })
 
 // Delete Admin by admin id
-router.delete('/deleteAdmin/:id', verifyAdmin, async (req,res) => {
+router.delete('/:id', verifyAdmin, async (req,res) => {
     try {
         await Admin.findByIdAndDelete(req.params.id)
         .then(doc=>{
@@ -190,7 +191,7 @@ router.delete('/deleteAdmin/:id', verifyAdmin, async (req,res) => {
 })
 
 // Get All User by admin
-router.get('/getAllUser', verifyAdmin, async (req,res) => {
+router.get('/User/getAllUser', verifyAdmin, async (req,res) => {
     try {
         const getAllUser = await User.find()
         res.json(getAllUser)
