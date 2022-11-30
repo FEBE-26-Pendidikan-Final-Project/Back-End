@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 //import validation
-const { registerValidation } = require('../configs/validation')
+const { registerValidation,updateValidation } = require('../configs/validation')
 
 // import models
 const Admin = require('../models/Admin')
@@ -101,25 +101,49 @@ router.get('/:id',verifyAdmin, async (req,res)=>{
 // Update data admin
 router.put('/:id',verifyAdmin, async (req, res) => {
     try{
-        const adminUpdate = await Admin.findByIdAndUpdate({_id: req.params.id}, {
-            nama: req.body.nama,
-            email: req.body.email
-        });
+        const { error } = updateValidation(req.body);
+        if(error) return res.status(400).json({
+            status: res.statusCode,
+            message: error.details[0].message
+        })
 
-        if(!adminUpdate) {
-            res.status(400).json("cek error")
-        } else {
-            res.status(200).json({
+        const dataLama = await Admin.findById(req.params.id);
+
+        
+        const checkValid = await bcrypt.compare(req.body.password, dataLama.password);
+        if(checkValid){
+            const salt = await bcrypt.genSalt(10);
+            const newHash = await bcrypt.hash(req.body.newPassword, salt);
+
+            await Admin.findByIdAndUpdate(req.params.id,{
+                nama:req.body.nama,
+                password:newHash
+            })
+            .then(ress=>{
+                res.status(200).json({
+                    status:res.statusCode,
+                    message:{
+                        nama:req.body.nama,
+                        password:newHash
+                    }
+                });
+            })
+            .catch(err=>{
+                res.status(400).json({
+                    status:res.statusCode,
+                    message:"data gagal diganti!"
+                });
+            })
+        }else{
+            res.status(400).json({
                 status:res.statusCode,
-                message:{
-                    nama:adminUpdate.nama
-                }
+                message:"Password tidak sesuai!"
             });
         }
     }catch(err){
         res.status(400).send({message: err})
     }
-}),
+})
 
 // Delete Admin by admin id
 router.delete('/deleteAdmin/:id', verifyAdmin, async (req,res) => {

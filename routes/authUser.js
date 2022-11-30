@@ -85,10 +85,8 @@ router.put('/:id',verifyToken, async (req, res) => {
         })
 
         const dataLama = await User.findById(req.params.id);
-
-        
         const checkValid = await bcrypt.compare(req.body.password, dataLama.password);
-        console.log(dataLama);
+
         if(checkValid){
             const salt = await bcrypt.genSalt(10);
             const newHash = await bcrypt.hash(req.body.newPassword, salt);
