@@ -6,7 +6,7 @@ const verifyAdmin = require('./verifyAdmin')
 const verifyToken = require('./verifyToken')
 
 
-// CREATE
+// CREATE nilai
 router.post('/',verifyToken, async (req, res) => {
     const nilaiPost = new Nilai({
         skor: req.body.skor,
@@ -22,7 +22,7 @@ router.post('/',verifyToken, async (req, res) => {
     }
 }),
 
-// READ
+// Get all nilai
 router.get('/', async (req, res) => {
     try {
         const nilai  = await Nilai.find()
@@ -58,7 +58,7 @@ router.get('/:id', async (req, res) => {
   }),
   //get semua nilai by quiz id
   router.get('/quiz/:id', async (req, res) => {
-    const kelasTaken = await KelasTaken.find({
+    const kelasTaken = await kelasTaken.find({
         "quiz": req.params.id
       })
     .populate('user')
@@ -86,7 +86,7 @@ router.put('/:id',verifyAdmin, async (req, res) => {
     }
 }),
 
-// DELETE
+// DELETE nilai by admin
 router.delete('/:id',verifyAdmin, async (req, res) => {
     try{
         const nilai = await Nilai.deleteOne({_id: req.params.id})

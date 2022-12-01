@@ -579,7 +579,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"kelas\" : \"id\",\r\n    \"nama\" : \"string\",\r\n    \"bacaan\" : \"string\",\r\n    \"soal\" : \"string\",\r\n    \"answer\" : [\r\n        \"String\",\r\n        \"String\",\r\n        \"String\",\r\n        \"String\"\r\n    ],\r\n    \"correctAswer\" : \"number\"\r\n}",
+					"raw": "{\r\n    \"kelas\" : \"id kelas\",\r\n    \"nama\" : \"cek ubah quiz\",\r\n    \"bacaan\" : \"cek ubah bacaan\",\r\n    \"soal\" : { \r\n    \"question\":\"cek ubah soal\", \r\n    \"answer\": [\r\n        \"cek ubah 1\",\r\n        \"cek ubah 2\",\r\n        \"cek ubah 3\",\r\n        \"cek ubah 4\"\r\n    ],\r\n    \"correctAnswer\" : \"number\"\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -661,7 +661,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nama\" : \"string\",\r\n    \"bacaan\" : \"string\",\r\n    \"soal\" : \"string\",\r\n    \"answer\" : [\r\n        \"String\",\r\n        \"String\",\r\n        \"String\",\r\n        \"String\"\r\n    ],\r\n    \"correctAswer\" : \"number\"\r\n}",
+					"raw": "{\r\n    \"nama\" : \"cek ubah quiz\",\r\n    \"bacaan\" : \"cek ubah bacaan\",\r\n    \"soal\" : { \r\n    \"question\":\"cek ubah soal\", \r\n    \"answer\": [\r\n        \"cek ubah 1\",\r\n        \"cek ubah 2\",\r\n        \"cek ubah 3\",\r\n        \"cek ubah 4\"\r\n    ],\r\n    \"correctAnswer\" : 2\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
