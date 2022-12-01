@@ -5,8 +5,7 @@ const KelasTaken = require('../models/KelasTaken')
 const verifyToken = require('./verifyToken')
 const verifyAdmin = require('./verifyAdmin')
 
-// ,verifyToken
-// CREATE
+// CREATE Kelas taken
 router.post('/', async (req, res) => {
     const kelasTakenPost = new KelasTaken({
         user: req.body.user,
@@ -30,9 +29,9 @@ router.get('/', async (req, res) => {
         res.json({message: err})
     }
 }),
-    
-//get semua user by kelasid
 
+
+//get semua user by kelasid
 router.get('/kelas/:id', async (req, res) => {
     const kelasTaken = await KelasTaken.find({
         "kelas": req.params.id

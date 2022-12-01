@@ -3,6 +3,7 @@ const express = require('express')
 const router = express.Router()
 const mongoose = require("mongoose")
 const Kelas = require('../models/Kelas')
+const Quiz = require('../models/Quiz')
 
 const verifyAdmin = require('./verifyAdmin')
 const verifyToken = require('./verifyToken')
@@ -75,14 +76,17 @@ router.put('/:id',verifyAdmin, async (req, res) => {
     }
 }),
 
-// DELETE
+// DELETE kelas by id
 router.delete('/:id',verifyAdmin, async (req, res) => {
     try{
-        const kelasUpdate = await Kelas.deleteOne({_id: req.params.id})
-        res.json(kelasUpdate, "Kelas berhasil dihapus")
+        const kelas = await Kelas.deleteOne({_id: req.params.id})
+        res.json({message:"Kelas berhasil dihapus"})
     }catch(err){
         res.json({message: err})
     }
 })
+
+
+
 
 module.exports = router
