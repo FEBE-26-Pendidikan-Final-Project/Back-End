@@ -4,6 +4,7 @@ const Quiz = require('../models/Quiz')
 
 const verifyAdmin = require('./verifyAdmin')
 const { quizValidation } = require('../configs/validationQuiz')
+const Kelas = require('../models/Kelas')
 
 
 // CREATE
@@ -42,8 +43,6 @@ router.post('/',verifyAdmin, async (req, res) => {
             correctAnswer:req.body.soal.correctAnswer
         }
     });
-
-    console.log(quizPost);
 
     try {
         const quiz = await quizPost.save()
@@ -90,7 +89,7 @@ router.get('/kelas/:id', async (req, res) => {
 // UPDATE Quiz
 router.put('/:id',verifyAdmin, async (req, res) => {
     try{
-        const quizUpdate = await Quiz.updateOne({_id: req.params.id}, {
+        const quizUpdate = await Quiz.updateMany({_id: req.params.id}, {
             nama: req.body.nama,
             bacaan: req.body.bacaan,
             soal: {
@@ -116,7 +115,7 @@ router.put('/:id',verifyAdmin, async (req, res) => {
     }
 }),
 
-// DELETE
+// DELETE quiz by quiz id
 router.delete('/:id',verifyAdmin, async (req, res) => {
     try{
         const quiz = await Quiz.deleteOne({_id: req.params.id})
@@ -125,5 +124,21 @@ router.delete('/:id',verifyAdmin, async (req, res) => {
         res.json({message: err})
     }
 })
+
+// Delete quiz by kelas id masih error
+// router.delete('/kelas/:id', verifyAdmin, async (req,res) => {
+//     try {
+//         const deletequiz = await Quiz.deleteMany({_id: req.params.id})
+//         if(!deletequiz){
+//             res.send("Quiz by Kelas Id tidak ditemukan")
+//         } else {
+//             res.send("Quiz berhasil dihapus")
+//         }
+//     } catch (error) {
+//         res.send(error)
+//     }
+// })
+
+
 
 module.exports = router
