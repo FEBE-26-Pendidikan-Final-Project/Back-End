@@ -93,9 +93,10 @@ router.delete('/Admin/:id',verifyAdmin, async (req, res) => {
 // Delete kelas taken by user
 router.delete('/:id', verifyToken, async (req, res)=> {
     try {
-        res.send("cek route delete kelas taken by user")
+        const deleteKelasTaken = await KelasTaken.deleteOne({_id:req.params.id})
+        res.json({message: "kelas taken has been deleted"})
     } catch (error) {
-        res.send(error)
+        res.json({message:"kelas not found"})
     }
 })
 
