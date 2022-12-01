@@ -118,47 +118,75 @@ router.get('/:id',verifyAdmin, async (req,res)=>{
 // Update data admin
 router.put('/:id',verifyAdmin, async (req, res) => {
     try{
-        const { error } = updateValidation(req.body);
-        if(error) return res.status(400).json({
-            status: res.statusCode,
-            message: error.details[0].message
-        })
+        const dataBaru = {
+            nama:req.body.nama,
+            password:req.body.password,
+            newPassword:req.body.newPassword
+        };
 
-        const dataLama = await Admin.findById(req.params.id);
+        console.log(dataBaru);
 
-        
-        const checkValid = await bcrypt.compare(req.body.password, dataLama.password);
-        if(checkValid){
-            const salt = await bcrypt.genSalt(10);
-            const newHash = await bcrypt.hash(req.body.newPassword, salt);
-
+        if(dataBaru.nama != undefined){
             await Admin.findByIdAndUpdate(req.params.id,{
-                nama:req.body.nama,
-                password:newHash
+                nama:dataBaru.nama
             })
             .then(ress=>{
                 res.status(200).json({
                     status:res.statusCode,
                     message:{
-                        nama:req.body.nama,
-                        password:newHash
+                        old:ress.nama,
+                        new:req.body.nama
                     }
                 });
             })
             .catch(err=>{
                 res.status(400).json({
                     status:res.statusCode,
-                    message:"data gagal diganti!"
+                    message:"gagal mengubah nama!"+err
                 });
             })
+        }else if(dataBaru.password != undefined && dataBaru.newPassword != undefined){
+            console.log(dataBaru);
+            const dataLama = await Admin.findById(req.params.id);
+            const checkValid = await bcrypt.compare(req.body.password, dataLama.password);
+
+            if(checkValid){
+                const salt = await bcrypt.genSalt(10);
+                const newHash = await bcrypt.hash(req.body.newPassword, salt);
+
+                await Admin.findByIdAndUpdate(req.params.id,{
+                    password:newHash
+                })
+                .then(ress=>{
+                    res.status(200).json({
+                        status:res.statusCode,
+                        message:"Password berhasil di ganti!"
+                    });
+                })
+                .catch(err=>{
+                    res.status(400).json({
+                        status:res.statusCode,
+                        message:"data gagal diganti!"
+                    });
+                })
+            }else{
+                res.status(400).json({
+                    status:res.statusCode,
+                    message:"Password tidak sesuai!"
+                });
+            }
         }else{
             res.status(400).json({
                 status:res.statusCode,
-                message:"Password tidak sesuai!"
+                message:"Data yang dimasukan tidak sesuai!"
             });
         }
+        
     }catch(err){
-        res.status(400).send({message: err})
+        res.status(400).json({
+            status:res.statusCode,
+            message:"Terjadi error saat update data!"
+        })
     }
 })
 
