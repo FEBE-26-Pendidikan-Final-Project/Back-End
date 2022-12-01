@@ -1,9 +1,12 @@
 const e = require('express')
 const express = require('express')
 const router = express.Router()
+
 const mongoose = require("mongoose")
+const KelasTaken = require('../models/KelasTaken')
 const Kelas = require('../models/Kelas')
 const Quiz = require('../models/Quiz')
+const Nilai = require('../models/Nilai')
 
 const verifyAdmin = require('./verifyAdmin')
 const verifyToken = require('./verifyToken')
@@ -80,7 +83,49 @@ router.put('/:id',verifyAdmin, async (req, res) => {
 router.delete('/:id',verifyAdmin, async (req, res) => {
     try{
         const kelas = await Kelas.deleteOne({_id: req.params.id})
-        res.json({message:"Kelas berhasil dihapus"})
+        if(kelas){
+            res.json({message:"Kelas berhasil dihapus"})
+            const getQuiz = await Quiz.findOne({kelas:req.params.id});
+            const quizID = getQuiz._id;
+            const hapusQuiz = await Quiz.deleteMany({kelas:req.params.id})
+            .then(resHapus =>{
+                if(resHapus){
+                    console.log("Berhasil dihapus quiz!");
+                }else{
+                    console.log("Gagal dihapus!");
+                }
+            })
+            .catch(err =>{
+                console.log(err);
+            })
+
+            const hapusKelasTaken = await KelasTaken.deleteMany({kelas:req.params.id})
+                    .then(resHapuss =>{
+                        if(resHapuss){
+                            console.log("Berhasil dihapus kelas taken!");
+                        }else{
+                            console.log("Gagal dihapus!");
+                        }
+                    })
+                    .catch(errr =>{
+                        console.log(errr);
+                    })
+
+
+            const hapusNilai = await Nilai.deleteMany({quiz:quizID})
+                    .then(resHapuss =>{
+                        if(resHapuss){
+                            console.log("Berhasil dihapus nilai!");
+                        }else{
+                            console.log("Gagal dihapus!");
+                        }
+                    })
+                    .catch(errr =>{
+                        console.log(errr);
+                    })
+        }else{
+            res.json({message:"Kelas gagal dihapus"})
+        }
     }catch(err){
         res.json({message: err})
     }
