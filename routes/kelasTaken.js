@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const KelasTaken = require('../models/KelasTaken')
+const Kelas = require('../models/Kelas')
 
 const verifyToken = require('./verifyToken')
 const verifyAdmin = require('./verifyAdmin')
@@ -12,11 +13,14 @@ router.post('/', async (req, res) => {
         kelas: req.body.kelas
     })
 
+    
     try {
         const kelasTaken = await kelasTakenPost.save()
         res.json(kelasTaken)
-    }catch(err){
-        res.json({message: err})
+    }catch(error){
+        //jika kelas not found
+        const kelas = await Kelas.findOne({kelas: req.body.kelas})
+        if(!kelas) return res.status(400).json({message: 'kelas Yang Anda Inputkan Salah!'})
     }
 }),
 

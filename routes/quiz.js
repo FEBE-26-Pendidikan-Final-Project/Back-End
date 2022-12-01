@@ -126,18 +126,18 @@ router.delete('/:id',verifyAdmin, async (req, res) => {
 })
 
 // Delete quiz by kelas id masih error
-// router.delete('/kelas/:id', verifyAdmin, async (req,res) => {
-//     try {
-//         const deletequiz = await Quiz.deleteMany({_id: req.params.id})
-//         if(!deletequiz){
-//             res.send("Quiz by Kelas Id tidak ditemukan")
-//         } else {
-//             res.send("Quiz berhasil dihapus")
-//         }
-//     } catch (error) {
-//         res.send(error)
-//     }
-// })
+router.delete('/kelas/:id', verifyAdmin, async (req,res) => {
+    try {
+        const deletequiz = await Quiz.deleteMany({_id: req.params.id})
+        if(!deletequiz){
+            res.send("Quiz by Kelas Id tidak ditemukan")
+        } else {
+            res.send("Quiz berhasil dihapus")
+        }
+    } catch (error) {
+        res.send(error)
+    }
+})
 
 
 
