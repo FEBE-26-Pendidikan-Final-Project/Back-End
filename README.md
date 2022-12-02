@@ -5,13 +5,13 @@
 > 3. `verifyToken` = token user
 > 4. `verifyAdmin` = token admin
 
-## Daftar End Point :
+## Daftar End Point Untuk Local :
 ## 1. User
 ### Auth
 - Register (`POST`) : http://localhost:3000/User/register
 - Login  (`POST`)   : http://localhost:3000/User/login
 - Update User (`PUT`)    : http://localhost:3000/User/:id
-- Get id user by email ('GET') : http://localhost:3000/User/id/
+- Get id user by email (`GET`) : http://localhost:3000/User/id/
 
 ### Join Kelas (Kelas Taken by User)
 - Join Kelas (`POST`) : http://localhost:3000/kelasTaken/
@@ -52,3 +52,8 @@
 - Get Nilai by quizId (`GET`) :  http://localhost:3000/Nilai/quiz/:id
 - Update Nilai (`PUT`) : http://localhost:3000/Nilai/:id
 - Delete Nilai (`DELETE`) : http://localhost:3000/Nilai/:id
+
+## Daftar End Point Untuk Postman :
+Untuk End Point Pada postman terdapat pada repositori `Back-end` dan folder `Api Documentation`. Untuk menggunakan Api Documentation pada postman, download file terlebih dahulu kemudian import pada aplikasi `postman` anda. 
+
+>End Point ini terhubung pada railway dan sudah dideploy secara online, namun memiliki sisa limit waktu 400 jam sejak README.md ini dibuat 
